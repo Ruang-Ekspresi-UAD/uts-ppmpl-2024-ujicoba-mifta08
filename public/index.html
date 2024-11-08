@@ -1,0 +1,44 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>User Lookup</h1>
+
+    <label for="userId">Enter User ID:</label>
+    <input type="text" id="userId" name="userId" />
+    <button id="submit" onclick="fetchUser()">Submit</button>
+
+    <div id="userInfo">
+        <p id="userName"></p>
+        <p id="errorMessage"></p>
+    </div>
+
+    <script>
+        async function fetchUser() {
+            const userId = document.getElementById('userId').value;
+            try {
+                const response = await fetch(`http://localhost:3000/users/${userId}`);
+                const data = await response.json();
+
+                if (response.status === 200) {
+                    document.getElementById('userName').textContent = `Name: ${data.name}`;
+                    document.getElementById('errorMessage').textContent = '';
+                } else {
+                    document.getElementById('userName').textContent = '';
+                    document.getElementById('errorMessage').textContent = 'User not found';
+                }
+            } catch (error) {
+                document.getElementById('userName').textContent = '';
+                document.getElementById('errorMessage').textContent = 'Error retrieving user';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
