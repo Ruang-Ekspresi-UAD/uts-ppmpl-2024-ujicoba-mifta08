@@ -22,7 +22,7 @@
         async function fetchUser() {
             const userId = document.getElementById('userId').value;
             try {
-                const response = await fetch(`http://localhost:3000/users/${userId}`);
+                const response = await fetch(`http://localhost:3001/users/${userId}`);
                 const data = await response.json();
 
                 if (response.status === 200) {
